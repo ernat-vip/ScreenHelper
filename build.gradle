@@ -19,6 +19,9 @@ android {
             maven { url 'https://jitpack.io' }
         }
     }
+    dependencies {
+        implementation 'com.github.ernat-vip:screenHelper:Tag'
+    }
 
     buildTypes {
         release {
