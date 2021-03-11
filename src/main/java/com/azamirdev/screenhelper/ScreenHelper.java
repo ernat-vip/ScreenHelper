@@ -28,7 +28,7 @@ public class ScreenHelper {
     private final double HEIGHT_SIZE_mm;
     private final DisplayMetrics metrics;
     private final Context context;
-    private Context cc,c2;
+    private Context cc;
 
     public ScreenHelper(Context context){
         metrics = new DisplayMetrics();
