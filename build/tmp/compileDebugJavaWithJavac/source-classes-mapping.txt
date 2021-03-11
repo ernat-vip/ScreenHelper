@@ -1,0 +1,4 @@
+com/azamirdev/screenhelper/BuildConfig.java
+ com.azamirdev.screenhelper.BuildConfig
+com/azamirdev/screenhelper/ScreenHelper.java
+ com.azamirdev.screenhelper.ScreenHelper
