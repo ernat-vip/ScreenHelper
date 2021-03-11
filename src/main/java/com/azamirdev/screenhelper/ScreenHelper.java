@@ -69,7 +69,8 @@ public class ScreenHelper {
         return (float) (dp * metrics.density);
     }
     public  float pxToSp(int px) {
-        return (float) (px / metrics.scaledDensity);
+        //return (float) (px / metrics.scaledDensity);
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, px,  ((Activity)context).getResources().getDisplayMetrics());
     }
 //SCREEN percent
     public int getPercentToPxFromHeight(int percent){return (int)(REAL_HEIGHT/100)*percent;}
