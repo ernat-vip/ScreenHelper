@@ -70,7 +70,11 @@ public class ScreenHelper {
     }
     public  float pxToSp(int px) {
         //return (float) (px / metrics.scaledDensity);
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, px,  ((Activity)context).getResources().getDisplayMetrics());
+        return (float) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, px,  ((Activity)context).getResources().getDisplayMetrics());
+    }
+    public  float pxToSp(float px) {
+        //return (float) (px / metrics.scaledDensity);
+        return (float) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, px,  ((Activity)context).getResources().getDisplayMetrics());
     }
 //SCREEN percent
     public int getPercentToPxFromHeight(int percent){return (int)(REAL_HEIGHT/100)*percent;}
