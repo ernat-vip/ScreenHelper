@@ -9,7 +9,9 @@ package com.azamirdev.screenhelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -17,6 +19,9 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class ScreenHelper {
     private final  String LOG_TAG = "ScreenHelper";
@@ -28,6 +33,7 @@ public class ScreenHelper {
     private final double HEIGHT_SIZE_mm;
     private final DisplayMetrics metrics;
     private final Context context;
+    public final boolean isPortrait;
 
     public ScreenHelper(Context context){
         metrics = new DisplayMetrics();
@@ -40,6 +46,7 @@ public class ScreenHelper {
         ROTATION_SCREEN = ((Activity)context).getWindowManager().getDefaultDisplay().getRotation();
         HEIGHT_SIZE_mm =REAL_HEIGHT / metrics.ydpi;
         REAL_HEIGHT=HEIGHT;
+        isPortrait= context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         Log.d(LOG_TAG,"created screen H/W"+REAL_HEIGHT+" / "+WIDTH);
 
     }
@@ -93,5 +100,31 @@ public class ScreenHelper {
     public int getItemMargin(int item_amount,int percent_margin_as_item){
         Log.d(LOG_TAG, " get item-margin:"+ Math.round((float) getItemSizeAsScreenWidth(item_amount) / 100 * percent_margin_as_item));
         return Math.round((float)getItemSizeAsScreenWidth(item_amount)/100*percent_margin_as_item);
+    }
+
+    public void showSnackInfo(View baseView, String text,boolean show_time_longed){
+        Snackbar snackbar;
+        if (show_time_longed){
+         snackbar = Snackbar
+                .make(baseView, text, Snackbar.LENGTH_LONG);}else{
+            snackbar = Snackbar
+                .make(baseView, text, Snackbar.LENGTH_SHORT);}
+        snackbar.show();
+    }
+    public void autoResizeSingleTextSize(TextView textView, String text, float percentWidth,float percentHeight,float stepSize){
+        float base_size = 0;
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, base_size);
+        Rect bounds = new Rect();
+        int height = 0;
+        while (textView.getPaint().measureText(text) < textView.getWidth() * percentWidth & height <textView.getHeight()*percentHeight) {
+            textView.getPaint().getTextBounds(text, 0, text.length(), bounds);
+            height = bounds.height();
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, base_size);
+            base_size += stepSize;
+        }
+    }
+
+    public DisplayMetrics getDisplayMetrics(){
+        return metrics;
     }
 }
